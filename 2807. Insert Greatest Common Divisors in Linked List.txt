@@ -1,0 +1,34 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+
+class Solution {
+  // Function to insert the GCD between each pair of adjacent nodes in the list
+  public ListNode insertGreatestCommonDivisors(ListNode head) {
+    // Traverse the linked list
+    for (ListNode curr = head; curr.next != null;) {
+      // Calculate GCD of the current node value and the next node value
+      ListNode inserted = new ListNode(gcd(curr.val, curr.next.val), curr.next);
+      
+      // Insert the new node containing the GCD between current and next nodes
+      curr.next = inserted;
+      
+      // Move to the node after the newly inserted one
+      curr = inserted.next;
+    }
+    return head; // Return the modified list
+  }
+
+  // Helper function to calculate the greatest common divisor (GCD) using recursion
+  private int gcd(int a, int b) {
+    // Base case: if b is 0, return a; otherwise, recursively find the GCD
+    return b == 0 ? a : gcd(b, a % b);
+  }
+}
