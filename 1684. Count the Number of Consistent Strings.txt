@@ -1,0 +1,34 @@
+1684. Count the Number of Consistent Strings
+
+
+
+You are given a string allowed consisting of distinct characters and an array of strings words. A string is consistent if all characters in the string appear in the string allowed.
+
+Return the number of consistent strings in the array words.
+
+
+Code: 
+
+
+      class Solution {
+  public int countConsistentStrings(String allowed, String[] words) {
+    return (int) Arrays.stream(words)
+        .filter(word -> word.matches(String.format("[%s]*", allowed)))
+        .count();
+  }
+}
+
+Time Complexity:
+
+The time complexity of the solution is O(n), where n is the number of nodes in the linked list.
+
+    In this approach, we traverse the linked list with two pointers (slow and fast).
+    Both pointers traverse the list once, and since the fast pointer moves twice as fast as the slow pointer, the slow pointer will reach the middle by the time the fast pointer reaches the end.
+    Hence, the entire list is traversed in one pass, making the time complexity O(n).
+
+Space Complexity:
+
+The space complexity of the solution is O(1).
+
+    We only use two additional pointers (slow and fast), which require constant space.
+    No extra data structures or recursive calls are used, so the space required does not depend on the size of the input.
