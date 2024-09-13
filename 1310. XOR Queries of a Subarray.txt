@@ -29,3 +29,9 @@ class Solution {
   }
 }
 
+Time complexity is:
+
+    O(n + m), where n is the length of arr and m is the number of queries.
+
+Space Complexity:
+    O(n + m), where n is the length of arr, and m is the number of queries.
