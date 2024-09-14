@@ -1,0 +1,58 @@
+2419. Longest Subarray With Maximum Bitwise AND
+
+
+You are given an integer array nums of size n.
+
+Consider a non-empty subarray from nums that has the maximum possible bitwise AND.
+
+    In other words, let k be the maximum value of the bitwise AND of any subarray of nums. Then, only subarrays with a bitwise AND equal to k should be considered.
+
+Return the length of the longest such subarray.
+
+The bitwise AND of an array is the bitwise AND of all the numbers in it.
+
+A subarray is a contiguous sequence of elements within an array.
+
+ 
+CODE:
+
+class Solution {
+  public int longestSubarray(int[] nums) {
+    int ans = 0;  // Variable to store the length of the longest subarray
+    int maxIndex = 0;  // Index of the maximum number encountered so far
+    int sameNumLength = 0;  // Length of the current subarray of the maximum number
+
+    // Traverse the array once (O(n) time complexity)
+    for (int i = 0; i < nums.length; ++i) {
+      // If the current number is equal to the number at maxIndex
+      if (nums[i] == nums[maxIndex]) {
+        sameNumLength++;  // Increase the length of the current subarray
+        ans = Math.max(ans, sameNumLength);  // Update the longest subarray found so far
+      } 
+      // If the current number is greater than the number at maxIndex
+      else if (nums[i] > nums[maxIndex]) {
+        maxIndex = i;  // Update maxIndex to the current index
+        sameNumLength = 1;  // Reset the current subarray length to 1 (since we just found a new max number)
+        ans = 1;  // Update the answer to 1 as this is the first occurrence of the new max number
+      } 
+      // If the current number is smaller than the number at maxIndex
+      else {
+        sameNumLength = 0;  // Reset the current subarray length to 0
+      }
+    }
+
+    return ans;  // Return the length of the longest subarray of the maximum number
+  }
+}
+
+
+Time Complexity:
+
+    O(n), where n is the number of elements in the array nums. The loop runs through each element once, making it linear in time complexity.
+
+Space Complexity:
+
+    O(1), since the algorithm uses a constant amount of additional space regardless of the input size. We only use a few integer variables (ans, maxIndex, sameNumLength), and no extra data structures are created that depend on the size of the input array.
+
+
+
