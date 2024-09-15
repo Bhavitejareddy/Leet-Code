@@ -1,0 +1,55 @@
+1371. Find the Longest Substring Containing Vowels in Even Counts
+
+
+
+Given the string s, return the size of the longest substring containing each vowel an even number of times. That is, 'a', 'e', 'i', 'o', and 'u' must appear an even number of times.
+
+
+CODE: 
+
+class Solution {
+  public int findTheLongestSubstring(String s) {
+    // The string that contains all the vowels
+    final String kVowels = "aeiou";
+    
+    // Variable to store the result (the length of the longest substring)
+    int ans = 0;
+    
+    // This variable 'prefix' will represent the state of the vowels (whether 
+    // each vowel appears an odd or even number of times). It's initialized to 0,
+    // which means all vowels appear an even number of times at the start.
+    int prefix = 0;
+    
+    // A hashmap that stores the first occurrence of each prefix. 
+    // The key is the binary representation of the current vowel state, and the value 
+    // is the index at which this state was first encountered. We start by adding the 
+    // prefix 0 at index -1 to handle edge cases where the valid substring starts from the beginning.
+    Map<Integer, Integer> prefixToIndex = new HashMap<>();
+    prefixToIndex.put(0, -1);
+
+    // Iterate over each character in the string
+    for (int i = 0; i < s.length(); ++i) {
+      // Get the index of the current character in the vowel string ("aeiou").
+      // If the character is a vowel, update the prefix by flipping the corresponding bit.
+      final int index = kVowels.indexOf(s.charAt(i));
+      
+      // If the current character is a vowel, we toggle the corresponding bit in 'prefix'.
+      // This helps us track whether each vowel has appeared an odd or even number of times.
+      if (index != -1)
+        prefix ^= 1 << index; // Use bit manipulation to toggle the bit
+      
+      // Check if this prefix has been seen before.
+      // If it has, calculate the length of the substring between the first occurrence 
+      // of this prefix and the current index. Update the result if this length is longer.
+      prefixToIndex.putIfAbsent(prefix, i);
+      ans = Math.max(ans, i - prefixToIndex.get(prefix));
+    }
+
+    // Return the length of the longest substring where each vowel appears an even number of times
+    return ans;
+  }
+}
+
+
+Time Complexity: O(n)
+Space Complexity: O(n)
