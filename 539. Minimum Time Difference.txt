@@ -1,0 +1,58 @@
+
+539. Minimum Time Difference
+
+Given a list of 24-hour clock time points in "HH:MM" format, return the minimum minutes difference between any two time-points in the list. 
+
+Code :
+
+class Solution {
+  public int findMinDifference(List<String> timePoints) {
+    // Maximum possible time difference is 24 hours (1440 minutes).
+    int ans = 24 * 60;
+    // Variable to track the first time point (to handle the wrap-around case).
+    int first = 24 * 60;
+    // A boolean array to mark the occurrence of each minute of the day.
+    boolean[] bucket = new boolean[24 * 60];
+
+    // Iterate over the time points and mark their presence in the bucket.
+    for (final String timePoint : timePoints) {
+      // Convert "HH:MM" into total minutes since midnight (00:00).
+      final int num = Integer.valueOf(timePoint.substring(0, 2)) * 60 
+                    + Integer.valueOf(timePoint.substring(3));
+
+      // Track the earliest (smallest) time point encountered.
+      first = Math.min(first, num);
+      
+      // If this time point has already been encountered, 
+      // the minimum difference is zero.
+      if (bucket[num])
+        return 0;
+
+      // Mark this time point as seen in the bucket.
+      bucket[num] = true;
+    }
+
+    // Variable to track the previous time point.
+    int prev = first;
+
+    // Iterate through the rest of the day (in minutes) starting from the first time point.
+    for (int i = first + 1; i < bucket.length; ++i) {
+      if (bucket[i]) { // If this time point exists.
+        // Update the answer with the difference between current and previous time points.
+        ans = Math.min(ans, i - prev);
+        prev = i; // Update the previous time point.
+      }
+    }
+
+    // Handle the wrap-around case: the difference between the last and first time points.
+    return Math.min(ans, 24 * 60 - prev + first);
+  }
+}
+
+Time Complexity:
+
+    O(n) where n is the number of time points. We process each time point in constant time, and then iterate through the bucket once.
+
+Space Complexity:
+
+    O(1) since the bucket size is fixed at 1440, which is constant regardless of the input size.
