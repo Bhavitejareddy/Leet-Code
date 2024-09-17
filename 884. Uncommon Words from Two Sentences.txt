@@ -1,0 +1,43 @@
+884. Uncommon Words from Two Sentences
+
+
+
+A sentence is a string of single-space separated words where each word consists only of lowercase letters.
+
+A word is uncommon if it appears exactly once in one of the sentences, and does not appear in the other sentence.
+
+Given two sentences s1 and s2, return a list of all the uncommon words. You may return the answer in any order.
+
+
+Code:
+
+class Solution {
+  public String[] uncommonFromSentences(String A, String B) {
+    // Create a list to store the uncommon words
+    List<String> ans = new ArrayList<>();
+    
+    // Create a map to store the frequency of each word
+    Map<String, Integer> count = new HashMap<>();
+
+    // Split both sentences A and B, and count the frequency of each word
+    // Using String concatenation (A + ' ' + B) and splitting it by spaces
+    for (final String word : (A + ' ' + B).split(" "))
+      // Merge the word into the count map, increasing its frequency
+      count.merge(word, 1, Integer::sum);
+
+    // Iterate through the keys (words) in the map
+    for (final String word : count.keySet())
+      // If the word appears exactly once, add it to the answer list
+      if (count.get(word) == 1)
+        ans.add(word);
+
+    // Convert the list of uncommon words to an array and return
+    return ans.toArray(new String[0]);
+  }
+}
+
+Time Complexity:
+- O(m + n), where `m` is the length of string `A` and `n` is the length of string `B`. This accounts for splitting and processing both strings.
+
+Space Complexity:
+- O(m + n), primarily due to the space required to store the words from both strings and the hashmap for word frequency.
