@@ -1,0 +1,36 @@
+179. Largest Number
+
+
+Given a list of non-negative integers nums, arrange them such that they form the largest number and return it.
+
+Since the result may be very large, so you need to return a string instead of an integer.
+
+CODE : 
+
+class Solution {
+  public String largestNumber(int[] nums) {
+    // Convert each integer in the array to a string and stream them
+    final String s = Arrays.stream(nums)
+                         // Convert each integer to its string representation
+                         .mapToObj(String::valueOf)
+                         // Sort the strings based on custom comparator: (b + a).compareTo(a + b)
+                         // This ensures that concatenating b before a gives a larger number
+                         .sorted((a, b) -> (b + a).compareTo(a + b))
+                         // Join all the strings together into a single string
+                         .collect(Collectors.joining(""));
+    
+    // If the result starts with "00", it means the numbers are all zeros, return "0"
+    return s.startsWith("00") ? "0" : s;
+  }
+}
+
+
+Time Complexity:
+O(n log n * m)
+Where n is the number of integers in the array and m is the average length of the string representation of each integer. The most time-consuming step is sorting the strings with the custom comparator.
+
+Space Complexity:
+O(n * m)
+This accounts for storing the string representations of the integers and the final concatenated result.
+
+
