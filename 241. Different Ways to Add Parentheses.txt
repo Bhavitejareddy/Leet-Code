@@ -1,0 +1,60 @@
+241. Different Ways to Add Parentheses
+
+Given a string expression of numbers and operators, return all possible results from computing all the different possible ways to group numbers and operators. You may return the answer in any order.
+
+The test cases are generated such that the output values fit in a 32-bit integer and the number of different results does not exceed 104.
+
+
+Code: 
+
+class Solution {
+  // Main function that initiates the computation and returns the list of possible results.
+  // It calls the helper function 'ways' and passes an empty HashMap to store results for memoization.
+  public List<Integer> diffWaysToCompute(String expression) {
+    return ways(expression, new HashMap<>()); // Start the recursive function with memoization
+  }
+
+  // Helper function to compute all possible results by dividing the expression at each operator
+  private List<Integer> ways(final String s, Map<String, List<Integer>> mem) {
+    // If we have already computed the result for this expression 's', return it from memory (memoization)
+    if (mem.containsKey(s))
+      return mem.get(s);
+
+    // List to store the results for this expression 's'
+    List<Integer> ans = new ArrayList<>();
+
+    // Iterate through each character in the string 's'
+    for (int i = 0; i < s.length(); ++i) {
+      // If the current character is an operator (not a digit)
+      if (!Character.isDigit(s.charAt(i))) {
+        // Recursively compute results for the left and right parts of the expression
+        // Left part is from the start to the current operator
+        // Right part is from just after the current operator to the end
+        for (final int a : ways(s.substring(0, i), mem)) // Compute results for the left part
+          for (final int b : ways(s.substring(i + 1), mem)) // Compute results for the right part
+            // Depending on the operator, perform the corresponding operation
+            if (s.charAt(i) == '+')
+              ans.add(a + b); // Add if the operator is '+'
+            else if (s.charAt(i) == '-')
+              ans.add(a - b); // Subtract if the operator is '-'
+            else
+              ans.add(a * b); // Multiply if the operator is '*'
+      }
+    }
+
+    // If 'ans' is still empty, it means there were no operators in the string (it is just a single number)
+    if (ans.isEmpty()) {
+      // Parse the string as an integer and add it to the memoization map
+      mem.put(s, Arrays.asList(Integer.parseInt(s)));
+      return mem.get(s); // Return the list containing this single number
+    }
+
+    // Store the computed results for the current expression in the memoization map
+    mem.put(s, ans);
+    return ans; // Return the list of results
+  }
+}
+
+
+Time complexity: O(Catalan number), where the number of ways the expression can be split grows exponentially.
+Space complexity: O(n^2), due to storing all possible sub-expression results in the memoization map.
