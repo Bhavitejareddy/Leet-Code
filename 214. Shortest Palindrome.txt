@@ -1,0 +1,30 @@
+214. Shortest Palindrome
+
+You are given a string s. You can convert s to a
+palindrome
+by adding characters in front of it.
+
+Return the shortest palindrome you can find by performing this transformation.
+
+
+CODE:
+
+class Solution {
+  public String shortestPalindrome(String s) {
+    // Create the reverse of the input string s and store it in variable t
+    final String t = new StringBuilder(s).reverse().toString();
+
+    // Iterate through the reverse string t
+    for (int i = 0; i < t.length(); ++i)
+      // If s starts with a substring of t from the current index i, then
+      // t.substring(i) is a suffix of t that is a prefix of s.
+      if (s.startsWith(t.substring(i)))
+        // The shortest palindrome is formed by adding the prefix of t up to index i to s.
+        return t.substring(0, i) + s;
+
+    // If no match is found, return t + s, which is the full reverse of s plus the original s.
+    return t + s;
+  }
+}
+Time Complexity: O(n2)
+Space Complexity: O(n)
