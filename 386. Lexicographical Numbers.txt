@@ -1,0 +1,44 @@
+386. Lexicographical Numbers
+
+Given an integer n, return all the numbers in the range [1, n] sorted in lexicographical order.
+
+You must write an algorithm that runs in O(n) time and uses O(1) extra space. 
+
+
+Code : 
+
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public List<Integer> lexicalOrder(int n) {
+        List<Integer> result = new ArrayList<>();
+        int curr = 1;
+        
+        for (int i = 0; i < n; i++) {
+            result.add(curr);
+            if (curr * 10 <= n) {
+                curr *= 10;  // Try to move to the next level
+            } else {
+                if (curr >= n) {
+                    curr /= 10;  // Move up one level if we're out of bounds
+                }
+                curr++;  // Move to the next number
+                while (curr % 10 == 0) {
+                    curr /= 10;  // Skip trailing zeros
+                }
+            }
+        }
+        
+        return result;
+    }
+}
+
+
+Time Complexity:
+
+    O(n): We generate each number in the range [1, n] exactly once.
+
+Space Complexity:
+
+    O(1): We use constant space for the result list aside from the input size.
