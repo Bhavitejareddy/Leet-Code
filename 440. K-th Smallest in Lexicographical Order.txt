@@ -1,0 +1,56 @@
+
+440. K-th Smallest in Lexicographical Order
+
+Given two integers n and k, return the kth lexicographically smallest integer in the range [1, n].
+
+
+
+CODE : 
+
+class Solution {
+  public int findKthNumber(int n, int k) {
+    long ans = 1;  // Start with the smallest number in lexicographical order (1)
+
+    for (int i = 1; i < k;) {  // Traverse until we find the k-th number
+      // Calculate the gap between `ans` and `ans + 1` in lexicographical order
+      final long gap = getGap(ans, ans + 1, n);
+
+      if (i + gap <= k) {
+        // If the current gap allows us to skip this subtree, move to the next number
+        i += gap;  // Update `i` to reflect that we skipped these numbers
+        ++ans;     // Move to the next number
+      } else {
+        // If the k-th number is within the current subtree, move deeper in the trie
+        ++i;       // Increment the position
+        ans *= 10; // Move to the next lexicographical level (deeper into the subtree)
+      }
+    }
+
+    return (int) ans;  // Return the k-th number
+  }
+
+  // Helper function to calculate the gap between numbers a and b in the trie
+  private long getGap(long a, long b, long n) {
+    long gap = 0;
+    // Compare the range of numbers starting with `a` and `b`
+    while (a <= n) {
+      gap += Math.min(n + 1, b) - a;  // Add the count of numbers between `a` and `b`
+      a *= 10;  // Go deeper by one level (e.g., 1 -> 10 -> 100)
+      b *= 10;  // Corresponding level for the next number
+    }
+    return gap;  // Return the total gap
+  }
+}
+
+
+
+Time Complexity:
+
+    The time complexity is O(log(n)), because the number of iterations is determined by the depth of the lexicographical tree (similar to traversing a trie).
+    At each level, we either move to the next sibling (increment ans) or go deeper into the trie (multiply ans by 10).
+
+Space Complexity:
+
+    The space complexity is O(1), since we only use a few variables (ans, gap, a, b) and the recursion depth or additional data structures do not grow with input size.
+
+This solution efficiently finds the k-th number in lexicographical order without generating all numbers from 1 to n.
