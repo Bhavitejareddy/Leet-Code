@@ -1,0 +1,35 @@
+2707. Extra Characters in a String
+
+
+You are given a 0-indexed string s and a dictionary of words dictionary. You have to break s into one or more non-overlapping substrings such that each substring is present in dictionary. There may be some extra characters in s which are not present in any of the substrings.
+
+Return the minimum number of extra characters left over if you break up s optimally.
+
+Code:
+
+class Solution {
+  public int minExtraChar(String s, String[] dictionary) {
+    final int n = s.length();
+    Set<String> dictionarySet = new HashSet<>(Arrays.asList(dictionary));
+    // dp[i] := the minimum extra letters if breaking up s[0..i) optimally
+    int[] dp = new int[n + 1];
+    Arrays.fill(dp, n);
+    dp[0] = 0;
+
+    for (int i = 1; i <= n; i++)
+      for (int j = 0; j < i; j++)
+        // s[j..i) is in `dictionarySet`.
+        if (dictionarySet.contains(s.substring(j, i)))
+          dp[i] = Math.min(dp[i], dp[j]);
+        // s[j..i) are extra letters.
+        else
+          dp[i] = Math.min(dp[i], dp[j] + i - j);
+
+    return dp[n];
+  }
+}
+
+Time Complexity: O(n2)O(n2)
+Space Complexity: O(n+m⋅l)O(n+m⋅l), where m is the number of words in the dictionary and l is the average length of the words.
+
+
