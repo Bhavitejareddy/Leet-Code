@@ -1,0 +1,62 @@
+2416. Sum of Prefix Scores of Strings
+
+
+You are given an array words of size n consisting of non-empty strings.
+
+We define the score of a string word as the number of strings words[i] such that word is a prefix of words[i].
+
+    For example, if words = ["a", "ab", "abc", "cab"], then the score of "ab" is 2, since "ab" is a prefix of both "ab" and "abc".
+
+Return an array answer of size n where answer[i] is the sum of scores of every non-empty prefix of words[i].
+
+Note that a string is considered as a prefix of itself.
+
+
+Code:
+
+
+class TrieNode {
+  public TrieNode[] children = new TrieNode[26];
+  public int count = 0;
+}
+
+class Solution {
+  public int[] sumPrefixScores(String[] words) {
+    int[] ans = new int[words.length];
+
+    for (final String word : words)
+      insert(word);
+
+    for (int i = 0; i < words.length; ++i)
+      ans[i] = getScore(words[i]);
+
+    return ans;
+  }
+
+  private TrieNode root = new TrieNode();
+
+  private void insert(String word) {
+    TrieNode node = root;
+    for (final char c : word.toCharArray()) {
+      final int i = c - 'a';
+      if (node.children[i] == null)
+        node.children[i] = new TrieNode();
+      node = node.children[i];
+      ++node.count;
+    }
+  }
+
+  private int getScore(String word) {
+    TrieNode node = root;
+    int score = 0;
+    for (final char c : word.toCharArray()) {
+      node = node.children[c - 'a'];
+      score += node.count;
+    }
+    return score;
+  }
+}
+
+
+Time Complexity: O(n * L), where n is the number of words and L is the average length of the words.
+Space Complexity: O(n * L), for storing the Trie.
