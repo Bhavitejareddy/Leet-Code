@@ -1,0 +1,50 @@
+1497. Check If Array Pairs Are Divisible by k
+
+
+Given an array of integers arr of even length n and an integer k.
+
+We want to divide the array into exactly n / 2 pairs such that the sum of each pair is divisible by k.
+
+Return true If you can find a way to do that or false otherwise.
+
+
+Code:
+class Solution {
+    public boolean canArrange(int[] arr, int k) {
+        // Create an array to count the occurrences of each remainder when dividing elements by k
+        int[] count = new int[k];
+
+        // Iterate through each element in the array
+        for (int a : arr) {
+            // Calculate the remainder
+            int r = a % k;
+
+            // Adjust negative remainders to positive
+            if (r < 0) {
+                r += k;
+            }
+
+            // Increment the count of the corresponding remainder
+            ++count[r];
+        }
+
+        // Check if the count of zero remainders is even
+        if (count[0] % 2 != 0) {
+            return false; // Impossible to arrange with equal sums
+        }
+
+        // Iterate from 1 to k/2 and check if remainder pairs match
+        for (int i = 1; i <= k / 2; i++) {
+            if (count[i] != count[k - i]) {
+                return false; // Impossible to arrange with equal sums
+            }
+        }
+
+        // If all checks pass, it's possible to arrange with equal sums
+        return true;
+    }
+}
+	
+
+Time Complexity: O(n) where n is the number of elements in arr, since we iterate over arr and then loop through half of the count array.
+Space Complexity: O(k) due to the count array.
