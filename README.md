@@ -14,6 +14,10 @@ Each problem is stored in a text file, named with the problem number and title (
 - **Optimization**: Focus on improving the efficiency of the code.
 - **Learning**: Gain deeper insights into different types of algorithms and data structures.
 - **Sharing**: Provide clear, well-documented code to help others learn.
+- **Achievements**:
+
+    - Earn the 200-day streak badge 🏅.
+    - Complete the October Daily Challenge badge 🏆.
 
 ## Topics Covered 📝
 - Arrays & Strings
