@@ -1,0 +1,45 @@
+1331. Rank Transform of an Array
+
+
+Given an array of integers arr, replace each element with its rank.
+
+The rank represents how large the element is. The rank has the following rules:
+
+    Rank is an integer starting from 1.
+    The larger the element, the larger the rank. If two elements are equal, their rank must be the same.
+    Rank should be as small as possible.
+
+
+Code:
+
+class Solution {
+  public int[] arrayRankTransform(int[] arr) {
+    // Clone the input array to avoid modifying the original array
+    int[] sortedArr = arr.clone();
+    
+    // A HashMap to store the rank of each unique element
+    Map<Integer, Integer> rank = new HashMap<>();
+
+    // Sort the cloned array to rank elements
+    Arrays.sort(sortedArr);
+
+    // Assign ranks to each unique element in sortedArr
+    for (final int a : sortedArr)
+      rank.putIfAbsent(a, rank.size() + 1); // If 'a' is not in the map, assign it the next rank
+
+    // Replace each element in the original array with its corresponding rank
+    for (int i = 0; i < arr.length; ++i)
+      arr[i] = rank.get(arr[i]);
+
+    return arr;
+  }
+}
+
+
+Time Complexity:
+
+    O(n log n), primarily due to sorting the array.
+
+Space Complexity:
+
+    O(n), for storing the cloned array and the HashMap.
