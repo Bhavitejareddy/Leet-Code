@@ -1,0 +1,38 @@
+567. Permutation in String
+
+
+Given two strings s1 and s2, return true if s2 contains a
+permutation
+of s1, or false otherwise.
+
+In other words, return true if one of s1's permutations is the substring of s2.
+
+
+Code:
+
+class Solution {
+  public boolean checkInclusion(String s1, String s2) {
+    int[] count = new int[26];
+    int required = s1.length();
+
+    for (final char c : s1.toCharArray())
+      ++count[c - 'a'];
+
+    for (int l = 0, r = 0; r < s2.length(); ++r) {
+      if (--count[s2.charAt(r) - 'a'] >= 0)
+        --required;
+      while (required == 0) {
+        if (r - l + 1 == s1.length())
+          return true;
+        if (++count[s2.charAt(l++) - 'a'] > 0)
+          ++required;
+      }
+    }
+
+    return false;
+  }
+}
+
+
+Time: O(∣s1∣+∣s2∣)O(∣s1∣+∣s2∣)
+Space: O(128)=O(1)O(128)=O(1)
