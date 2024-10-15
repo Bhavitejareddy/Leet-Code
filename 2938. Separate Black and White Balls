@@ -1,0 +1,30 @@
+2938. Separate Black and White Balls
+
+There are n balls on a table, each ball has a color black or white.
+
+You are given a 0-indexed binary string s of length n, where 1 and 0 represent black and white balls, respectively.
+
+In each step, you can choose two adjacent balls and swap them.
+
+Return the minimum number of steps to group all the black balls to the right and all the white balls to the left.
+
+
+
+Code: 
+class Solution {
+  public long minimumSteps(String s) {
+    long ans = 0;
+    int ones = 0;
+
+    for (final char c : s.toCharArray())
+      if (c == '1')
+        ++ones;
+      else // Move 1s to the front of the current '0'.
+        ans += ones;
+
+    return ans;
+  }
+}
+
+The time complexity is O(n), where n is the length of the string.
+The space complexity is O(1).
