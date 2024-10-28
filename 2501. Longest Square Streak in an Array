@@ -1,0 +1,37 @@
+2501. Longest Square Streak in an Array
+
+You are given an integer array nums. A subsequence of nums is called a square streak if:
+
+The length of the subsequence is at least 2, and
+after sorting the subsequence, each element (except the first element) is the square of the previous number.
+Return the length of the longest square streak in nums, or return -1 if there is no square streak.
+
+A subsequence is an array that can be derived from another array by deleting some or no elements without changing the order of the remaining elements.
+
+Code: 
+class Solution {
+    public int longestSquareStreak(int[] nums) {
+        Map<Integer, Integer> nextSquareToLength = new HashMap<>();
+        // First, sort nums so we don't have issues linking the squares together
+        Arrays.sort(nums);
+        int maxLength = 0;
+        for (int num : nums) {
+            if (nextSquareToLength.containsKey(num)) {
+                int val = nextSquareToLength.get(num) + 1;
+                nextSquareToLength.put(num*num, val);
+                if (val > maxLength) {
+                    maxLength = val;
+                }
+            } else {
+                nextSquareToLength.put(num*num, 1);
+            }
+        }
+        return (maxLength > 1) ? maxLength : -1;
+    }
+}
+
+Time Complexity:
+Therefore, the total average-case time complexity is O(n).
+
+Space Complexity:
+Therefore, the space complexity is O(n).
