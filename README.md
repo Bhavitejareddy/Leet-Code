@@ -17,7 +17,7 @@ Each problem is stored in a text file, named with the problem number and title (
 - **Achievements**:
 
     - Earn the 200-day streak badge 🏅.
-    - Complete the October Daily Challenge badge 🏆.
+    - Complete the November Daily Coding Challenge badge 🏆.
 
 ## Topics Covered 📝
 - Arrays & Strings
@@ -43,11 +43,8 @@ Connect with Me 🔗
 * GitHub:   [Bhavitejareddy](https://github.com/Bhavitejareddy)
 * LinkedIn: [Tatigunta Bhavi teja Reddy](https://www.linkedin.com/in/tatigunta-bhavi-teja-reddy-b01008233/)
 ## Achievement :fire: 
-Daily Coding Challenge Completed - September Month 
+Daily Coding Challenge Completed - October Month 
 
-![image](https://github.com/user-attachments/assets/f6783d52-6aea-4962-bb0b-8076214a2a9c)
-
-![image](https://github.com/user-attachments/assets/72453447-558f-4349-8421-2612be4cee78)
 
 
 
