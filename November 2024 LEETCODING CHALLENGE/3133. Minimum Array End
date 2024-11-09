@@ -29,3 +29,6 @@ class Solution {
     return 32 - Integer.numberOfLeadingZeros(n);
   }
 }
+
+The Time complexity is O(log x).
+The Space complexity is O(1).
