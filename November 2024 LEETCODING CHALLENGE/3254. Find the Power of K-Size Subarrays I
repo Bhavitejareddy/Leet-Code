@@ -1,0 +1,33 @@
+3254. Find the Power of K-Size Subarrays I
+
+You are given an array of integers nums of length n and a positive integer k.
+
+The power of an array is defined as:
+
+Its maximum element if all of its elements are consecutive and sorted in ascending order.
+-1 otherwise.
+You need to find the power of all subarrays of nums of size k.
+
+Return an integer array results of size n - k + 1, where results[i] is the power of nums[i..(i + k - 1)].
+
+Code:
+class Solution {
+    public int[] resultsArray(int[] nums, int k) {
+        int n = nums.length;
+        int[] f = new int[n];
+        Arrays.fill(f, 1);
+        for (int i = 1; i < n; ++i) {
+            if (nums[i] == nums[i - 1] + 1) {
+                f[i] = f[i - 1] + 1;
+            }
+        }
+        int[] ans = new int[n - k + 1];
+        for (int i = k - 1; i < n; ++i) {
+            ans[i - k + 1] = f[i] >= k ? nums[i] : -1;
+        }
+        return ans;
+    }
+}
+
+The time complexity is O(n)
+The space complexity is O(n). Here, n represents the length of the array nums.
