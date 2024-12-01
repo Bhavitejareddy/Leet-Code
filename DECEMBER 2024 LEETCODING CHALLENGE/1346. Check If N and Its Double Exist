@@ -1,0 +1,25 @@
+1346. Check If N and Its Double Exist
+
+Given an array arr of integers, check if there exist two indices i and j such that :
+
+i != j
+0 <= i, j < arr.length
+arr[i] == 2 * arr[j]
+ 
+Code:
+class Solution {
+  public boolean checkIfExist(int[] arr) {
+    Set<Integer> seen = new HashSet<>();
+
+    for (final int a : arr) {
+      if (seen.contains(a * 2) || a % 2 == 0 && seen.contains(a / 2))
+        return true;
+      seen.add(a);
+    }
+
+    return false;
+  }
+}
+
+The Time Complexity is O(N)
+The Space Complexity is O(N)
