@@ -7,7 +7,6 @@ Shifting a character forward means replacing it with the next letter in the alph
 Return the final string after all such shifts to s are applied.
 
 Code:
-
 class Solution {
   public String shiftingLetters(String s, int[][] shifts) {
     StringBuilder sb = new StringBuilder();
@@ -22,7 +21,6 @@ class Solution {
       timeline[start] += diff;
       timeline[end + 1] -= diff;
     }
-
     for (int i = 0; i < s.length(); ++i) {
       currShift = (currShift + timeline[i]) % 26;
       final int num = (s.charAt(i) - 'a' + currShift + 26) % 26;
