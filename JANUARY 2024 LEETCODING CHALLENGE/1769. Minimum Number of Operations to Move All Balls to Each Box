@@ -25,7 +25,6 @@ class Solution {
       count += boxes.charAt(i) == '1' ? 1 : 0;
       moves += count;
     }
-
     return ans;
   }
 }
