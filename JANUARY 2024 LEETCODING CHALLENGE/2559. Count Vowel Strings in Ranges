@@ -25,7 +25,6 @@ class Solution {
     }
     return ans;
   }
-
   private boolean startsAndEndsWithVowel(final String word) {
     return isVowel(word.charAt(0)) && isVowel(word.charAt(word.length() - 1));
   }
