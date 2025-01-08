@@ -18,7 +18,6 @@ class Solution {
         --ones;
       ans = Math.max(ans, zeros + ones);
     }
-
     return ans;
   }
 }
