@@ -23,7 +23,6 @@ class Solution {
       final int r = queries[i][1];
       ans[i] = prefix[r + 1] - prefix[l];
     }
-
     return ans;
   }
 
