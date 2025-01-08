@@ -22,7 +22,6 @@ class Solution {
       if (prefix >= suffix)
         ++ans;
     }
-
     return ans;
   }
 }
