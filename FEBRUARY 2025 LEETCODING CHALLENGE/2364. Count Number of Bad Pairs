@@ -1,0 +1,23 @@
+2364. Count Number of Bad Pairs
+
+You are given a 0-indexed integer array nums. A pair of indices (i, j) is a bad pair if i < j and j - i != nums[j] - nums[i].
+
+Return the total number of bad pairs in nums.
+
+Code:
+
+class Solution {
+  public long countBadPairs(int[] nums) {
+    long ans = 0;
+    Map<Integer, Long> count = new HashMap<>(); // (nums[i] - i)
+
+    for (int i = 0; i < nums.length; ++i) {
+      //     count[nums[i] - i] := the number of good pairs
+      // i - count[nums[i] - i] := the number of bad pairs
+      ans += i - count.getOrDefault(nums[i] - i, 0L);
+      count.merge(nums[i] - i, 1L, Long::sum);
+    }
+
+    return ans;
+  }
+}
